@@ -368,10 +368,11 @@ app.post('/law/:id/generate-report', isLoggedInAndAdmin, async (req, res) => {
             }))
         };
         
-        const pythonProcess = spawn('python3', [
-            path.join(__dirname , 'sentiment_api', 'sentiment_api.py'),
-            JSON.stringify(payload)
-        ]);
+        // This is the first code block
+const pythonProcess = spawn('python3', [
+    path.join(__dirname, 'sentiment_api', 'sentiment_api.py'),
+    JSON.stringify(payload)
+   ]);
 
         let result = '';
         let pythonError = '';
