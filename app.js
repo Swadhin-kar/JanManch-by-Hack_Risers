@@ -9,6 +9,21 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
+// ... existing imports
+
+
+
+
+const bcrypt = require('bcrypt');
+const { spawn } = require('child_process');
+
+// Import your Mongoose models
+const Listing = require('./models/listing'); 
+const Law = require('./models/law');      
+const Review = require('./models/review');  
+
+
+// ... rest of your code
 
 const sessionSecret = process.env.SESSION_SECRET;
 
