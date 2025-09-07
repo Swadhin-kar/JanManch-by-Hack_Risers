@@ -2,41 +2,47 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
-const { spawn } = require('child_process');
 const methodOverride = require('method-override');
 const port = 3000;
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
-const Listing = require('./models/listing.js');
-const Law = require('./models/law.js');
-const Review = require('./models/review.js');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
-const bcrypt = require('bcrypt');
-const fetch = require('node-fetch');
-
 
 const sessionSecret = process.env.SESSION_SECRET;
+
 // MongoDB Connection
-main().then(() => {
-    console.log('Connected to MongoDB');
-}).catch(err => {
-    console.error('Error connecting to MongoDB:', err);
-});
-app.use(session({
-  store: MongoStore.create({
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('Error connecting to MongoDB:', err));
+
+// --- Session Store Setup ---
+const store = MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
-    crypto:{ 
-        secret:process.env.SESSION_SECRET
-    },// See below for details
+    crypto: { secret: sessionSecret },
     touchAfter: 24 * 3600 // time period in seconds
-  })
+});
+
+// Handle store errors
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e);
+});
+
+// --- Session Middleware ---
+app.use(session({
+    store,
+    secret: sessionSecret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+        rolling: true
+    }
 }));
 
-async function main() {
-    await mongoose.connect(process.env.MONGODB_URI);
-}
+// Flash middleware
+app.use(flash());
 
 // App Configuration
 app.engine('ejs', ejsMate);
@@ -46,22 +52,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
-store.on("error", function (e) {
-    console.log("SESSION STORE ERROR", e)
-});
-
-// Session and Flash Middleware
-app.use(session({
-    store,
-    secret: sessionSecret,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { 
-        maxAge: 24 * 60 * 60 * 1000,
-        rolling: true
-    }
-}));
-app.use(flash());'my-super-secret-key'
 
 // Res Locals Middleware
 app.use((req, res, next) => {
@@ -70,6 +60,12 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.session.user || null;
     res.locals.path = req.path;
     next();
+});
+
+// ... your routes go here ...
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
 
 // Authentication Middleware
