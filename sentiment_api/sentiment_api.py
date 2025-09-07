@@ -138,4 +138,5 @@ if __name__ == '__main__':
 
     except Exception as e:
         print(json.dumps({"error": str(e)}), file=sys.stderr)
-        sys.exit(1)
+        sys.exit(1) 
+        
