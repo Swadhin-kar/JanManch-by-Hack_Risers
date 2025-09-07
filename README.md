@@ -10,8 +10,8 @@ Developed as part of **Hackodisha 5.0** by **Team Hack_Risers**.
 
 ## 👥 Team
 - Suryanshu Behera  
-- Y Sidhartha Rajkumar  
-- Nath Sharma  
+- Y Sidhartha
+- Rajkumar Nath Sharma  
 - Swadhin Kumar Kar  
 - Subhasis Jena  
 
