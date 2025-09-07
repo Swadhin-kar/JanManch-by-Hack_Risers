@@ -1,0 +1,16 @@
+Flask
+gunicorn
+pandas
+numpy
+scikit-learn
+nltk
+textblob
+matplotlib
+pandas
+sys
+json
+textblob 
+matplotlib.pyplot 
+io
+base64
+collections 

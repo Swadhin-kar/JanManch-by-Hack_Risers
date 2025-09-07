@@ -1,0 +1,75 @@
+<%layout("layouts/boilerplate.ejs")%>
+  
+<body >
+    <div style="max-width: 900px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(38, 99, 235, 0.25), 0 1.5px 6px rgba(26, 53, 87, 0.12); padding: 32px;">
+        <h1 style="text-align:center; color:#1a3557;">Admin Dashboard</h1>
+        <p style="text-align:center; color:#3a4a5d;">Manage laws, voting polls, and review user opinions.</p>
+
+        <section style="margin-bottom: 40px;">
+            <h2>Add New Law</h2>
+            <form action="/add-law" method="POST" class="needs-validation" novalidate style="display:grid; gap:16px;">
+                <input type="text" name="title" placeholder="Law Title" required style="height:48px; font-size:1.1em;" class="form-control">
+                <div class="invalid-feedback">
+                    Please provide a valid law title.
+                </div>
+                <input type="text" name="proposedBy" placeholder="Proposed By (e.g. Govt, Court)" required style="height:48px; font-size:1.1em;" class="form-control">
+                <div class="invalid-feedback">
+                    Please provide who proposed the law.
+                </div>
+                <select name="mainField" required style="height:48px; font-size:1.1em;" class="form-select">
+                    <option value="">Select Main Field</option>
+                    <option value="Data Privacy and Consumer Rights">Data Privacy and Consumer Rights</option>
+                    <option value="Education">Education</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Environment">Environment</option>
+                    <option value="Labor Rights">Labor Rights</option>
+                    <option value="Criminal Law">Criminal Law</option>
+                    <option value="Civil Rights">Civil Rights</option>
+                    <option value="Taxation">Taxation</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a main field.
+                </div>
+                <select name="relatedClasses" required style="height:48px; font-size:1.1em;" class="form-select">
+                    <option value="">Select Related Classes</option>
+                    <option value="Consumers">Consumers</option>
+                    <option value="Students">Students</option>
+                    <option value="Teachers">Teachers</option>
+                    <option value="Doctors">Doctors</option>
+                    <option value="Businesses">Businesses</option>
+                    <option value="Government Employees">Government Employees</option>
+                    <option value="General Public">General Public</option>
+                    <option value="Farmers">Farmers</option>
+                    <option value="Women">Women</option>
+                    <option value="Children">Children</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a related class.
+                </div>
+                <input type="datetime-local" name="endTime" required style="height:48px; font-size:1.1em;" class="form-control">
+                <div class="invalid-feedback">
+                    Please provide an end date and time.
+                </div>
+                <textarea name="description" placeholder="Law Description" rows="4" required style="height:80px; font-size:1.1em;" class="form-control"></textarea>
+                <div class="invalid-feedback">
+                    Please provide a description of the law.
+                </div>
+                <button type="submit" style="background:#1a3557; color:#fff; padding:10px 24px; border:none; border-radius:6px;">Push Law</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        (function () {
+            'use strict'
+            const form = document.querySelector('.needs-validation')
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })()
+    </script>
+</body>

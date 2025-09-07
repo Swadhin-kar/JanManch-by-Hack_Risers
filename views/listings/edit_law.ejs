@@ -1,0 +1,88 @@
+<%layout("layouts/boilerplate.ejs")%>
+  
+<body >
+    <div style="max-width: 900px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(38, 99, 235, 0.25), 0 1.5px 6px rgba(26, 53, 87, 0.12); padding: 32px;">
+        <h1 style="text-align:center; color:#1a3557;">Edit Law</h1>
+        <p style="text-align:center; color:#3a4a5d;">Update the details of this proposed law.</p>
+
+        <section style="margin-bottom: 40px;">
+            <h2>Edit Law Details</h2>
+            <form action="/law/<%= law._id %>?_method=PUT" method="POST" class="needs-validation" novalidate style="display:grid; gap:16px;">
+                <input type="text" name="title" value="<%= law.title %>" required style="height:48px; font-size:1.1em;" class="form-control">
+                <div class="invalid-feedback">
+                    Please provide a valid title.
+                </div>
+                <input type="text" name="proposedBy" value="<%= law.proposedBy %>" required style="height:48px; font-size:1.1em;" class="form-control">
+                <div class="invalid-feedback">
+                    Please provide a proposer's name.
+                </div>
+                <select name="mainField" required style="height:48px; font-size:1.1em;" class="form-select">
+                    <option value="">Select Main Field</option>
+                    <option value="Data Privacy and Consumer Rights" <% if (law.mainField === 'Data Privacy and Consumer Rights') { %>selected<% } %>>Data Privacy and Consumer Rights</option>
+                    <option value="Education" <% if (law.mainField === 'Education') { %>selected<% } %>>Education</option>
+                    <option value="Healthcare" <% if (law.mainField === 'Healthcare') { %>selected<% } %>>Healthcare</option>
+                    <option value="Environment" <% if (law.mainField === 'Environment') { %>selected<% } %>>Environment</option>
+                    <option value="Labor Rights" <% if (law.mainField === 'Labor Rights') { %>selected<% } %>>Labor Rights</option>
+                    <option value="Criminal Law" <% if (law.mainField === 'Criminal Law') { %>selected<% } %>>Criminal Law</option>
+                    <option value="Civil Rights" <% if (law.mainField === 'Civil Rights') { %>selected<% } %>>Civil Rights</option>
+                    <option value="Taxation" <% if (law.mainField === 'Taxation') { %>selected<% } %>>Taxation</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a main field.
+                </div>
+                <select name="relatedClasses" required style="height:48px; font-size:1.1em;" class="form-select">
+                    <option value="">Select Related Classes</option>
+                    <option value="Consumers" <% if (law.relatedClasses === 'Consumers') { %>selected<% } %>>Consumers</option>
+                    <option value="Students" <% if (law.relatedClasses === 'Students') { %>selected<% } %>>Students</option>
+                    <option value="Teachers" <% if (law.relatedClasses === 'Teachers') { %>selected<% } %>>Teachers</option>
+                    <option value="Doctors" <% if (law.relatedClasses === 'Doctors') { %>selected<% } %>>Doctors</option>
+                    <option value="Businesses" <% if (law.relatedClasses === 'Businesses') { %>selected<% } %>>Businesses</option>
+                    <option value="Government Employees" <% if (law.relatedClasses === 'Government Employees') { %>selected<% } %>>Government Employees</option>
+                    <option value="General Public" <% if (law.relatedClasses === 'General Public') { %>selected<% } %>>General Public</option>
+                    <option value="Farmers" <% if (law.relatedClasses === 'Farmers') { %>selected<% } %>>Farmers</option>
+                    <option value="Women" <% if (law.relatedClasses === 'Women') { %>selected<% } %>>Women</option>
+                    <option value="Children" <% if (law.relatedClasses === 'Children') { %>selected<% } %>>Children</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a related class.
+                </div>
+
+                <select name="status" required style="height:48px; font-size:1.1em;" class="form-select">
+                    <option value="">Select Status</option>
+                    <option value="On-going" <% if (law.status === 'On-going') { %>selected<% } %>>On-going</option>
+                    <option value="Closed" <% if (law.status === 'Closed') { %>selected<% } %>>Closed</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a status.
+                </div>
+                
+                <input type="datetime-local" name="endTime" value="<%= law.endTime.toISOString().slice(0, 16) %>" required style="height:48px; font-size:1.1em;" class="form-control">
+                <div class="invalid-feedback">
+                    Please provide an end date.
+                </div>
+                <textarea name="description" rows="4" required style="height:80px; font-size:1.1em;" class="form-control"><%= law.description %></textarea>
+                <div class="invalid-feedback">
+                    Please provide a description.
+                </div>
+                <div style="display: flex; justify-content: space-between; gap: 16px; margin-top: 16px;">
+                    <button type="submit" style="background:#2663eb; color:#fff; padding:10px 24px; border:none; border-radius:6px; flex-grow: 1;">Update Law</button>
+                    <a href="/law/<%= law._id%>" style="background:#6c757d; color:#fff; padding:10px 24px; border:none; border-radius:6px; text-decoration: none; text-align: center; flex-grow: 1;">Back</a>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        (function () {
+            'use strict'
+            const form = document.querySelector('.needs-validation')
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })()
+    </script>
+</body>
