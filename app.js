@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -25,17 +25,17 @@ const Review = require('./models/review');
 
 // ... rest of your code
 
-const sessionSecret = process.env.SESSION_SECRET;
+
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect('mongodb://127.0.0.1:27017/hackodisha')
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
 
 // --- Session Store Setup ---
 const store = MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI,
-    crypto: { secret: sessionSecret },
+    mongoUrl: 'mongodb://127.0.0.1:27017/hackodisha',
+    crypto: { secret: 'my-super-secret-key' },
     touchAfter: 24 * 3600 // time period in seconds
 });
 
@@ -47,7 +47,7 @@ store.on("error", function (e) {
 // --- Session Middleware ---
 app.use(session({
     store,
-    secret: sessionSecret,
+    secret: 'my-super-secret-key',
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -368,10 +368,10 @@ app.post('/law/:id/generate-report', isLoggedInAndAdmin, async (req, res) => {
             }))
         };
         
-        const pythonProcess = spawn('python3', [
-            path.join(__dirname, '..', 'sentiment_api', 'sentiment_api.py'),
-            JSON.stringify(payload)
-        ]);
+     const pythonProcess = spawn('python3', [
+    path.join(__dirname, 'sentiment_api', 'sentiment_api.py'),
+    JSON.stringify(payload)
+]);
 
         let result = '';
         let pythonError = '';
