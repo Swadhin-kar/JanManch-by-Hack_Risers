@@ -1,5 +1,5 @@
 
-
+require("dotenv").config({ path: __dirname + "/../.env" });
 const mongoose = require('mongoose');
 const express = require('express');
 const Law = require('../models/law.js');
@@ -185,7 +185,7 @@ main().then(() => {
     console.error('Error connecting to MongoDB:', err);
 });
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/hackodisha', {
+  await mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });

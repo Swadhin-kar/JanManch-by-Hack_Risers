@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -10,21 +11,31 @@ const Listing = require('./models/listing.js');
 const Law = require('./models/law.js');
 const Review = require('./models/review.js');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const bcrypt = require('bcrypt');
 const fetch = require('node-fetch');
-require('dotenv').config();
 
-const sessionSecret = 'my-super-secret-key';
+
+const sessionSecret = process.env.SESSION_SECRET;
 // MongoDB Connection
 main().then(() => {
     console.log('Connected to MongoDB');
 }).catch(err => {
     console.error('Error connecting to MongoDB:', err);
 });
+app.use(session({
+  store: MongoStore.create({
+    mongoUrl: process.env.MONGODB_URI,
+    crypto:{ 
+        secret:process.env.SESSION_SECRET
+    },// See below for details
+    touchAfter: 24 * 3600 // time period in seconds
+  })
+}));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/hackodisha');
+    await mongoose.connect(process.env.MONGODB_URI);
 }
 
 // App Configuration
@@ -35,9 +46,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+});
 
 // Session and Flash Middleware
 app.use(session({
+    store,
     secret: sessionSecret,
     resave: false,
     saveUninitialized: true,
