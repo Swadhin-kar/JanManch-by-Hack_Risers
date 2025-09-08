@@ -23,8 +23,9 @@ RUN npm install --production
 # Copy the entire project code into the container
 COPY . .
 
-# Install all Python dependencies directly within the Dockerfile
-RUN pip3 install Flask gunicorn pandas "numpy<1.26" scikit-learn nltk textblob matplotlib
+# Install all Python dependencies from the requirements.txt file
+COPY requirements.txt ./
+RUN pip3 install -r requirements.txt
 
 # Download NLTK data required for text analysis
 RUN python3 -c "import nltk; nltk.download('punkt')"
