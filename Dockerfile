@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copyin the Node.js package files
+# Copy the Node.js package files
 COPY package.json package-lock.json ./
 
 # Install Node.js dependencies
@@ -23,9 +23,11 @@ RUN npm install --production
 # Copy the entire project code into the container
 COPY . .
 
-# Copy and install Python dependencies
-COPY requirements.txt ./
-RUN pip3 install -r requirements.txt
+# Install all Python dependencies directly within the Dockerfile
+RUN pip3 install Flask gunicorn pandas "numpy<1.26" scikit-learn nltk textblob matplotlib
+
+# Download NLTK data required for text analysis
+RUN python3 -c "import nltk; nltk.download('punkt')"
 
 # The command to start your Node.js application
 CMD ["node", "app.js"]
