@@ -28,4 +28,4 @@ COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
 
 # The command to start your Node.js application
-CMD ["node", "app.js"]
+CMD ["node", "app.js"] 
