@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy the Node.js package files
+# Copyin the Node.js package files
 COPY package.json package-lock.json ./
 
 # Install Node.js dependencies
@@ -24,8 +24,8 @@ RUN npm install --production
 COPY . .
 
 # Copy and install Python dependencies
-COPY requirements.txt ./
+COPY sentiment_api/requirements.txt ./
 RUN pip3 install -r requirements.txt
 
 # The command to start your Node.js application
-CMD ["node", "app.js"] 
+CMD ["node", "app.js"]
