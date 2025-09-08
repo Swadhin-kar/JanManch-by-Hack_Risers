@@ -1,141 +1,147 @@
 <% layout("layouts/boilerplate.ejs") %>
 
-<body class="d-flex align-items-center justify-content-center" style="width: 1000px !important;">
-    <form action="/register" method="post" class="card p-4 shadow-lg card-form needs-validation" novalidate style="width: 99.5%;min-width: 600px;">
-        <h2 class="text-2xl font-bold text-center">Reviewing First Time?</h2>
-        <h3 class="text-center text-muted mb-4">Register Yourself</h3>
+<body class="d-flex align-items-center justify-content-center">
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <form action="/register" method="post" class="card p-4 shadow-lg card-form needs-validation" novalidate>
+                    <h2 class="text-2xl font-bold text-center">Reviewing First Time?</h2>
+                    <h3 class="text-center text-muted mb-4">Register Yourself</h3>
 
-        <div class="mb-3">
-            <label for="name" class="form-label text-primary">Name</label>
-            <input type="text" id="name" name="name" class="form-control" placeholder="Ex:- Alice Loon" required pattern="[A-Za-z\s]+" />
-            <div class="invalid-feedback">
-                Please enter a valid name.
+                    <div class="mb-3">
+                        <label for="name" class="form-label text-primary">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Ex:- Alice Loon" required pattern="[A-Za-z\s]+" />
+                        <div class="invalid-feedback">
+                            Please enter a valid name.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label text-primary">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="ex:- user123" required minlength="4" />
+                        <div class="invalid-feedback" id="username-invalid-feedback">
+                            Please choose a username of at least 4 characters.
+                        </div>
+                        <div class="valid-feedback" id="username-valid-feedback">
+                            Username is available!
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="age" class="form-label text-primary">Age</label>
+                        <input type="number" id="age" name="age" class="form-control" placeholder="ex:-25" required min="18" max="100" />
+                        <div class="invalid-feedback">
+                            Please enter a valid age between 18 and 100.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="place" class="form-label text-primary">Place</label>
+                        <input type="text" id="place" name="place" class="form-control" placeholder="ex:- Delhi" required pattern="[A-Za-z\s]+" />
+                        <div class="invalid-feedback">
+                            Please enter a valid place name.
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="gender" class="form-label text-primary">Gender</label>
+                            <select name="gender" id="gender" class="form-select" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select your gender.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-3 mt-md-0">
+                            <label for="religion" class="form-label text-primary">Religion</label>
+                            <select name="religion" id="religion" class="form-select" required>
+                                <option value="" disabled selected>Select Religion</option>
+                                <option value="hindu">Hindu</option>
+                                <option value="muslim">Muslim</option>
+                                <option value="christian">Christian</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select your religion.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="education" class="form-label text-primary">Education</label>
+                        <select name="education" id="education" class="form-select" required>
+                            <option value="" disabled selected>Select Education Level</option>
+                            <option value="illiterate">Illiterate</option>
+                            <option value="highSchool">High school</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="bachelor">Bachelor's degree</option>
+                            <option value="master">Master's degree</option>
+                            <option value="phd">PhD</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select your education level.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="profession" class="form-label text-primary">Profession</label>
+                        <select name="profession" id="profession" class="form-select" required>
+                            <option value="" disabled selected>Select Profession</option>
+                            <option value="unemployed">Unemployed</option>
+                            <option value="software_engineer">Software Engineer</option>
+                            <option value="doctor">Doctor</option>
+                            <option value="teacher">Teacher</option>
+                            <option value="nurse">Nurse</option>
+                            <option value="lawyer">Lawyer</option>
+                            <option value="engineer">Engineer</option>
+                            <option value="accountant">Accountant</option>
+                            <option value="scientist">Scientist</option>
+                            <option value="artist">Artist</option>
+                            <option value="student">Student</option>
+                            <option value="entrepreneur">Entrepreneur</option>
+                            <option value="manager">Manager</option>
+                            <option value="police_officer">Police Officer</option>
+                            <option value="writer">Writer</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Please select your profession.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label text-primary">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="ex:- 8903637777" required pattern="[0-9]{10}" />
+                        <div class="invalid-feedback">
+                            Please enter a valid 10-digit phone number.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="form-label text-primary">Password</label>
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Choose a strong password" required minlength="8" />
+                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <div class="invalid-feedback">
+                                Please enter a password of at least 8 characters.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="/" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <div class="mb-3">
-            <label for="username" class="form-label text-primary">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="ex:- user123" required minlength="4" />
-            <div class="invalid-feedback" id="username-invalid-feedback">
-                Please choose a username of at least 4 characters.
-            </div>
-            <div class="valid-feedback" id="username-valid-feedback">
-                Username is available!
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="age" class="form-label text-primary">Age</label>
-            <input type="number" id="age" name="age" class="form-control" placeholder="ex:-25" required min="18" max="100" />
-            <div class="invalid-feedback">
-                Please enter a valid age between 18 and 100.
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="place" class="form-label text-primary">Place</label>
-            <input type="text" id="place" name="place" class="form-control" placeholder="ex:- Delhi" required pattern="[A-Za-z\s]+" />
-            <div class="invalid-feedback">
-                Please enter a valid place name.
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="gender" class="form-label text-primary">Gender</label>
-                <select name="gender" id="gender" class="form-select" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </select>
-                <div class="invalid-feedback">
-                    Please select your gender.
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label for="religion" class="form-label text-primary">Religion</label>
-                <select name="religion" id="religion" class="form-select" required>
-                    <option value="" disabled selected>Select Religion</option>
-                    <option value="hindu">Hindu</option>
-                    <option value="muslim">Muslim</option>
-                    <option value="christian">Christian</option>
-                    <option value="other">Other</option>
-                </select>
-                <div class="invalid-feedback">
-                    Please select your religion.
-                </div>
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="education" class="form-label text-primary">Education</label>
-            <select name="education" id="education" class="form-select" required>
-                <option value="" disabled selected>Select Education Level</option>
-                <option value="illiterate">Illiterate</option>
-                <option value="highSchool">High school</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="bachelor">Bachelor's degree</option>
-                <option value="master">Master's degree</option>
-                <option value="phd">PhD</option>
-            </select>
-            <div class="invalid-feedback">
-                Please select your education level.
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="profession" class="form-label text-primary">Profession</label>
-            <select name="profession" id="profession" class="form-select" required>
-                <option value="" disabled selected>Select Profession</option>
-                <option value="unemployed">Unemployed</option>
-                <option value="software_engineer">Software Engineer</option>
-                <option value="doctor">Doctor</option>
-                <option value="teacher">Teacher</option>
-                <option value="nurse">Nurse</option>
-                <option value="lawyer">Lawyer</option>
-                <option value="engineer">Engineer</option>
-                <option value="accountant">Accountant</option>
-                <option value="scientist">Scientist</option>
-                <option value="artist">Artist</option>
-                <option value="student">Student</option>
-                <option value="entrepreneur">Entrepreneur</option>
-                <option value="manager">Manager</option>
-                <option value="police_officer">Police Officer</option>
-                <option value="writer">Writer</option>
-                <option value="other">Other</option>
-            </select>
-            <div class="invalid-feedback">
-                Please select your profession.
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="phone" class="form-label text-primary">Phone Number</label>
-            <input type="tel" id="phone" name="phone" class="form-control" placeholder="ex:- 8903637777" required pattern="[0-9]{10}" />
-            <div class="invalid-feedback">
-                Please enter a valid 10-digit phone number.
-            </div>
-        </div>
-
-        <div class="mb-4 input-group">
-            <label for="password" class="form-label text-primary">Password</label>
-            <div class="input-group">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Choose a strong password" required minlength="8" />
-                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                    <i class="fas fa-eye"></i>
-                </button>
-                <div class="invalid-feedback">
-                    Please enter a password of at least 8 characters.
-                </div>
-            </div>
-        </div>
-
-        <div class="d-flex justify-content-between">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="/" class="btn btn-secondary">Back</a>
-        </div>
-    </form>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
