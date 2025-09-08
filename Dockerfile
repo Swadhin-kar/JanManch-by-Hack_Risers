@@ -5,10 +5,12 @@ FROM node:18-slim
 # Install Python and other necessary tools
 # The `lsb-release` is often needed for some apt-get commands
 # `python3-pip` is required to install python packages
+# `build-essential` is needed to compile certain Python packages
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     lsb-release \
+    build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container
@@ -23,11 +25,8 @@ RUN npm install --production
 # Copy the entire project code into the container
 COPY . .
 
-# Install numpy first to satisfy dependencies for other libraries
-RUN pip3 install numpy
-
-# Install the remaining Python dependencies
-RUN pip3 install Flask gunicorn pandas scikit-learn nltk textblob matplotlib
+# Install all Python dependencies at once using 'pip'
+RUN pip install Flask gunicorn pandas numpy scikit-learn nltk textblob matplotlib
 
 # Download NLTK data required for text analysis
 RUN python3 -c "import nltk; nltk.download('punkt')"
