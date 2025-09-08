@@ -24,7 +24,7 @@ RUN npm install --production
 COPY . .
 
 # Copy and install Python dependencies
-COPY sentiment_api/requirements.txt ./
+COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
 
 # The command to start your Node.js application
