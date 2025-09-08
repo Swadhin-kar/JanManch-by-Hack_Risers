@@ -23,8 +23,11 @@ RUN npm install --production
 # Copy the entire project code into the container
 COPY . .
 
-# Install all Python dependencies directly without a requirements.txt file
-RUN pip3 install Flask gunicorn pandas numpy scikit-learn nltk textblob matplotlib
+# Install numpy first to satisfy dependencies for other libraries
+RUN pip3 install numpy
+
+# Install the remaining Python dependencies
+RUN pip3 install Flask gunicorn pandas scikit-learn nltk textblob matplotlib
 
 # Download NLTK data required for text analysis
 RUN python3 -c "import nltk; nltk.download('punkt')"
