@@ -376,6 +376,7 @@ app.post('/law/:id/generate-report', isLoggedInAndAdmin, async (req, res) => {
 
 
 
+
         let result = '';
         let pythonError = '';
 
