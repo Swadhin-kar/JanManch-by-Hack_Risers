@@ -7,7 +7,7 @@ import io
 import base64
 from collections import defaultdict
 
-# Utility function to convert a matplotlib figure to a base64 PNG string
+
 def fig_to_base64(fig):
     """Converts a matplotlib figure to a base64 encoded PNG string."""
     buf = io.BytesIO()
@@ -17,22 +17,22 @@ def fig_to_base64(fig):
     plt.close(fig)
     return img_base64
 
-# --- Plotting Functions based on your Python files ---
+
 
 def plot_agegroup_pie(data):
     """
     Generates a pie chart for reviews by age group.
     Age groups: <18, 18–40, >40
     """
-    # Ensure AgeGroup is categorized
+  
     bins = [0, 17, 40, 200]
     labels = ["<18", "18–40", ">40"]
     data["AgeGroupCategory"] = pd.cut(data["AgeGroup"], bins=bins, labels=labels, right=True)
 
-    # Count reviews by age group (regardless of sentiment)
+   
     age_counts = data["AgeGroupCategory"].value_counts().sort_index()
 
-    # Plot pie chart
+
     fig, ax = plt.subplots(figsize=(6, 6))
     age_counts.plot.pie(
         autopct="%1.1f%%",

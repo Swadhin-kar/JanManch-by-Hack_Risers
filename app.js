@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
-// ... existing imports
+
 
 
 
@@ -17,34 +17,34 @@ const flash = require('connect-flash');
 const bcrypt = require('bcrypt');
 const { spawn } = require('child_process');
 
-// Import your Mongoose models
+
 const Listing = require('./models/listing'); 
 const Law = require('./models/law');      
 const Review = require('./models/review');  
 
 
-// ... rest of your code
+
 
 const sessionSecret = process.env.SESSION_SECRET;
 
-// MongoDB Connection
+
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
 
-// --- Session Store Setup ---
+
 const store = MongoStore.create({
     mongoUrl: process.env.MONGODB_URI,
     crypto: { secret: sessionSecret },
     touchAfter: 24 * 3600 // time period in seconds
 });
 
-// Handle store errors
+
 store.on("error", function (e) {
     console.log("SESSION STORE ERROR", e);
 });
 
-// --- Session Middleware ---
+
 app.use(session({
     store,
     secret: sessionSecret,
@@ -56,10 +56,10 @@ app.use(session({
     }
 }));
 
-// Flash middleware
+
 app.use(flash());
 
-// App Configuration
+
 app.engine('ejs', ejsMate);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -68,7 +68,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
 
-// Res Locals Middleware
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -77,13 +76,13 @@ app.use((req, res, next) => {
     next();
 });
 
-// ... your routes go here ...
+
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-// Authentication Middleware
+
 const isLoggedIn = (req, res, next) => {
     if (!req.session.user) {
         req.flash('error', 'You must be logged in to do that.');
@@ -104,9 +103,8 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-// --- ROUTES ---
 
-// General Routes
+
 app.get('/', (req, res) => res.render("listings/home.ejs"));
 app.get('/register', (req, res) => res.render("listings/register.ejs"));
 app.get('/about', (req, res) => res.render("listings/about.ejs"));
@@ -114,7 +112,7 @@ app.get('/login', (req, res) => res.render("listings/login.ejs"));
 app.get('/privacy', (req, res) => res.render("listings/privacy.ejs"));
 app.get('/terms', (req, res) => res.render("listings/terms.ejs"));
 
-// User Management Routes
+
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -166,7 +164,7 @@ app.get('/logout', (req, res) => {
     });
 });
 
-// Username Availability Check
+
 app.get('/check-username/:username', async (req, res) => {
     try {
         const { username } = req.params;
@@ -178,7 +176,7 @@ app.get('/check-username/:username', async (req, res) => {
     }
 });
 
-// Law and Review Routes
+
 app.get('/list', async (req, res) => {
     try {
         const laws = await Law.find({});
@@ -398,7 +396,7 @@ app.post('/law/:id/generate-report', isLoggedInAndAdmin, async (req, res) => {
 
             try {
                 const analysisResults = JSON.parse(result);
-                // This is the line that populates the law.analysisResults field
+            
                 law.analysisResults = analysisResults;
                 await law.save();
                 req.flash('success', 'Report generated and uploaded successfully!');
