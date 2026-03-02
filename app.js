@@ -270,6 +270,7 @@ app.post('/review/:id', isLoggedIn, async (req, res) => {
 app.get('/add', isLoggedInAndAdmin, (req, res) => res.render("listings/add.ejs"));
 
 app.post('/add-law', isLoggedInAndAdmin, async (req, res) => {
+    // this is where we will handle the form submission for adding a new law
     try {
         const newLaw = new Law(req.body);
         await newLaw.save();
