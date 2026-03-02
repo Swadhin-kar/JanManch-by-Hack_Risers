@@ -111,6 +111,11 @@ app.get('/about', (req, res) => res.render("listings/about.ejs"));
 app.get('/login', (req, res) => res.render("listings/login.ejs"));
 app.get('/privacy', (req, res) => res.render("listings/privacy.ejs"));
 app.get('/terms', (req, res) => res.render("listings/terms.ejs"));
+app.get('/healthz', (req, res) => {
+    res.status(200).json({
+        status: 'ok'
+    })
+})
 
 
 app.post("/login", async (req, res) => {
